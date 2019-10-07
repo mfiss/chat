@@ -3,7 +3,6 @@ import contrib from "blessed-contrib";
 import { firestore } from "./firebase";
 
 const screen = blessed.screen();
-
 //grid.set(row, col, rowSpan, colSpan, obj, opts)
 const grid = new contrib.grid({ rows: 12, cols: 12, screen: screen });
 const channels = grid.set(0, 0, 11.5, 2, contrib.table, {
@@ -11,8 +10,11 @@ const channels = grid.set(0, 0, 11.5, 2, contrib.table, {
   vi: true,
   interactive: true,
   label: "Channels",
-  border: { type: "line", fg: "cyan" },
-  columnWidth: [16] /*in chars*/
+  border: {
+    type: "line",
+    fg: "cyan"
+  },
+  columnWidth: [16]
 });
 const chat = grid.set(0, 2, 11.5, 10, contrib.log, { label: "Chat" });
 const message = grid.set(11.5, 0, 0.65, 12, blessed.textbox, {
@@ -41,7 +43,6 @@ fetchChannels();
 const fetchMessages = async () => {
   try {
     await firestore.collection("/channels/0NFtJhVR6ST6TFUcZxJr/messages/").onSnapshot(snapshot => {
-        chat.render()
       snapshot.docs.map(doc => {
         chat.log(doc.data().message)
       })
@@ -51,8 +52,6 @@ const fetchMessages = async () => {
   }
 }
 fetchMessages()
-
-
 
 const postMessage = async (message) => {
   try {
