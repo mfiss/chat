@@ -25,6 +25,6 @@ npm install
 
 Runs the application
 
-###TODO: 
+### TODO: 
 * Make the chats appear in chronological order
 * Add usernames, timestamps, etc
